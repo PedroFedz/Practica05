@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 public class Ejercicio4 {
 	
-	
 	public static int[][] obtenerDiagonales(int[][] matriz) {
 	    int n = matriz.length;
 	    int[][] diagonales = new int[2][n];

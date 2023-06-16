@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JsonReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Sesion05pfs341</a> &gt; <a href="index.source.html" class="el_package">ual.hmis.sesion05.coches</a> &gt; <span class="el_source">JsonReader.java</span></div><h1>JsonReader.java</h1><pre class="source lang-java linenums">package ual.hmis.sesion05.coches;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+<span class="fc" id="L12">public class JsonReader {</span>
+
+	public static Coche[] leerCochesJSON (String archivo) throws IOException {
+<span class="fc" id="L15">		Coche[] coches = null;</span>
+<span class="fc" id="L16">        Gson gson = new Gson();</span>
+<span class="fc" id="L17">        JsonParser parser = new JsonParser();</span>
+
+<span class="fc" id="L19">        try (FileReader reader = new FileReader(archivo)) {</span>
+            // Parsear el archivo JSON en un objeto de la clase JsonObject
+<span class="fc" id="L21">            JsonObject jsonObject = parser.parse(reader).getAsJsonObject();</span>
+
+            // Obtener el arreglo de objetos &quot;coches&quot;
+<span class="fc" id="L24">            JsonArray cochesJson = jsonObject.getAsJsonArray(&quot;coches&quot;);</span>
+
+            // Crear un arreglo de la clase Coche y llenarlo con los objetos del archivo JSON
+<span class="fc" id="L27">            coches = gson.fromJson(cochesJson, Coche[].class);</span>
+
+            
+<span class="fc" id="L30">        } catch (FileNotFoundException e) {</span>
+            
+<span class="fc" id="L32">        } </span>
+<span class="fc" id="L33">        return coches;</span>
+        
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

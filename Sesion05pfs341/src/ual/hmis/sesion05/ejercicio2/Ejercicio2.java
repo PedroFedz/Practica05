@@ -11,24 +11,13 @@ public class Ejercicio2 {
 		// comprobar que la longitud sea < 30
 		if(username.length()>=30 || password.length()>=30 ) return false;
 		
-//		// comprobar password con letra mayuscula, una minuecula y un digito
-//		for (char  letra : password.toCharArray()) {
-//			if(Character.isLowerCase(letra)) min = true;
-//			
-//			if(Character.isUpperCase(letra)) may = true;
-//			
-//			if(Character.isDigit(letra)) num = true;
-//		}
-//		
-//		if(min == false || may == false || num == false) return false;
-		
-		// llamar al método de la bbdd
+		// llamar al metodo de la bbdd
 		return compruebaLoginEnBD(username, password);
 	}
 	
-	public boolean compruebaLoginEnBD(String username, String password){
-		// método mock (simulado)
-		if (username.equals("user") && password.equals("pass"))
+	public boolean compruebaLoginEnBD(String username, String pass){
+		// metodo mock (simulado)
+		if (username.equals("user") && pass.equals("pass"))
 			return true;
 		else
 			return false;

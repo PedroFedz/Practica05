@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Ejercicio4Test xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../testapidocs/ual/hmis/sesion05/ejercicio4/Ejercicio4Test.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> ual.hmis.sesion05.ejercicio4;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Order;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.TestMethodOrder;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.params.ParameterizedTest;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.params.converter.ConvertWith;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.params.provider.CsvFileSource;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.params.provider.CsvSource;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> ual.hmis.sesion05.Ejercicio1;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> ual.hmis.sesion05.ejercicio2.Ejercicio2;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertArrayEquals;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertFalse;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> java.util.Iterator;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.MethodOrderer;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="Ejercicio4Test" href="../../../../ual/hmis/sesion05/ejercicio4/Ejercicio4Test.html#Ejercicio4Test">Ejercicio4Test</a> {
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  	
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  	@ParameterizedTest
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  	@CsvSource({
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  	    <span class="jxr_string">"1 2;3 4, 1 4;3 2;"</span>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  	})
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> tesstCsvDiagonales(String matriz, String matrizEsperada) {
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  		
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  		 String[] lineas = matriz.split(<span class="jxr_string">";"</span>);
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  		 String[] lineasE = matrizEsperada.split(<span class="jxr_string">";"</span>);
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  		    <strong class="jxr_keyword">int</strong>[][] result = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">int</strong>[lineas.length][lineas.length];
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  		    <strong class="jxr_keyword">int</strong>[][] esperada = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">int</strong>[lineasE.length][lineasE.length];
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  		    
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  		    
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  		    <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; lineas.length; i++) {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  		        String[] linea = lineas[i].trim().split(<span class="jxr_string">" "</span>);
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  		        String[] lineaE = lineasE[i].trim().split(<span class="jxr_string">" "</span>);
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  		        <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> j = 0; j &lt; linea.length; j++) {
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  		            result[i][j] = Integer.parseInt(linea[j].trim());
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  		            esperada[i][j] = Integer.parseInt(lineaE[j].trim());
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  		        }
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  		    }
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  		    assertArrayEquals(esperada, Ejercicio4.obtenerDiagonales(result));
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  	 }
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  	
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  	
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  	@ParameterizedTest
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  	@CsvSource({
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  	    <span class="jxr_string">"1 2;3 4, 4 6"</span>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  	})
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> tesstSumarColumnas(String matriz, String arrayEsperado) {
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  		Ejercicio4 ej4 = <strong class="jxr_keyword">new</strong> Ejercicio4();
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  		String[] lineasE = arrayEsperado.split(<span class="jxr_string">" "</span>);
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  		<strong class="jxr_keyword">double</strong> suma [] = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">double</strong>[lineasE.length]; 
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  		
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  		<strong class="jxr_keyword">for</strong>(<strong class="jxr_keyword">int</strong> i = 0; i &lt; lineasE.length;i++) {
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  			suma[i] = Double.parseDouble(lineasE[i]);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  		}
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  		
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  		String[] lineas = matriz.split(<span class="jxr_string">";"</span>);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  		
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  		    <strong class="jxr_keyword">double</strong>[][] result = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">double</strong>[lineas.length][lineas.length];	    
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  		    
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  		    <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; lineas.length; i++) {
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  		        String[] linea = lineas[i].trim().split(<span class="jxr_string">" "</span>);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  		        <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> j = 0; j &lt; linea.length; j++) {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  		            result[i][j] = Integer.parseInt(linea[j].trim());
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  		        }
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  		    }
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  		    
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  		    assertArrayEquals(suma, ej4.sumarColumnas(result), 0.01);
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  		
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  	}
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  	
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2023. All rights reserved.</div>
+</body>
+</html>

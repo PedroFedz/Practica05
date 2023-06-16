@@ -3,12 +3,13 @@ package ual.hmis.sesion05.ejercicio2;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-
-import ual.hmis.sesion05.Ejercicio1;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 
 import org.junit.jupiter.api.MethodOrderer;
 
@@ -20,45 +21,43 @@ public class Ejercicio2Test {
 	@Order(1)
 	public void testEmpty(){
 		
-		Ejercicio2 ej1 = new Ejercicio2();
+		Ejercicio2 ej2 = new Ejercicio2();
 		
-		assertFalse(ej1.login("", ""));
-		assertFalse(ej1.login("Alberto", ""));
-		assertFalse(ej1.login("", "Alberto"));
+		assertEquals(false, ej2.login("", "Alberto"));
+		assertEquals(false, ej2.login("Alberto", ""));
+		
 	}
 	
-	@Test
+	@ParameterizedTest (name = "{index} => se prueba el usuario ({0}) con contraseña ({1})")
+	@CsvSource({
+	    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,Alberto,false",
+	    "Alberto,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,false"
+	})
 	@Order(2)
-	public void testLength(){
+	public void testLength(String name, String password, Boolean esperado){
 		
-		Ejercicio2 ej1 = new Ejercicio2();
+		Ejercicio2 ej2 = new Ejercicio2();
 		String longString =  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 		
 		
-		assertFalse(ej1.login(longString, "Alberto"));
-		assertFalse(ej1.login("Alberto", longString));
+		assertEquals(esperado, ej2.login(name, password));
 	}
 	
 	
 	
-	@Test
-	@Order(2)
-	public void testVerificarion(){
+	@ParameterizedTest (name = "{index} => se prueba el usuario ({0}) con contraseña ({1})")
+	@CsvSource({
+	    "Alberto,Garcia,false",
+	    "Alberto,pass,false",
+	    "user,Garcia,false",
+	    "user,pass,true"
+	})
+	@Order(3)
+	public void testVerificarion(String name, String password, Boolean esperado){
 		
-		Ejercicio2 ej1 = new Ejercicio2();
-		
-		assertFalse(ej1.login("Alberto", "Garcia"));
-		assertFalse(ej1.login("Alberto", "pass"));
-		assertFalse(ej1.login("user", "Garcia"));
-		
-		//Asercion Correcta
-		assertTrue(ej1.login("user", "pass"));
+		Ejercicio2 ej2 = new Ejercicio2();
+	
+		assertEquals(esperado, ej2.login(name, password));
 	}
 	
-	
-	
-	
-	
-	
-
 }

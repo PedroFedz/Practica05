@@ -5,55 +5,46 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
 
-import ual.hmis.sesion05.Ejercicio1;
-import ual.hmis.sesion05.ejercicio2.Ejercicio2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import ual.hmis.sesion05.ejercicio3.*;
 import org.junit.jupiter.api.MethodOrderer;
 
 
 public class Ejercicio3Test {
 	
-	
-
-	@Test
+	@ParameterizedTest (name = "{index} => se enmascara la contraseña ({0}) y da como resultado ({1})")
+	@CsvSource({
+	    "pass, password demasiado corto",
+	    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, password demasiado largo"
+	})
 	@Order(1)
-	public void testOutOfRange(){
-		Ejercicio3 ej1 = new Ejercicio3();
-		String esperadoC = "password demasiado corto";
-		String esperadoL = "password demasiado largo";
+	public void testOutOfRange(String password, String esperado){
+		Ejercicio3 ej3 = new Ejercicio3();
 		
-		assertEquals(esperadoC, ej1.enmascarado("pass"));
-		assertEquals(esperadoL, ej1.enmascarado("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
-	
+		assertEquals(esperado, ej3.enmascarado(password));
 	}
 	
-	@Test
+	
+	
+	@ParameterizedTest (name = "{index} => se enmascara la contraseña ({0}) y da como resultado ({1})")
+	@CsvSource({
+	    "pfs34, ********",
+	    "Contraseña larga, ************"
+	})
 	@Order(2)
-	public void testInRange(){
+	public void testInRange(String password, String esperado){
 		Ejercicio3 ej1 = new Ejercicio3();
 		
-		assertEquals("********", ej1.enmascarado("pfs34"));
-		assertEquals("************", ej1.enmascarado("Contrase�a larga"));
+		assertEquals(esperado, ej1.enmascarado(password));
 	
 	}
 	
 	
-	 @ParameterizedTest
-	 @CsvFileSource(resources = "datos.csv")
-	 public void testAllEjercicio3(String password) {
-		 Ejercicio3 ej1 = new Ejercicio3();
-		 String esperado;
-		 if(password.length() < 5) esperado = "password demasiado corto";
-		 else if(password.length() > 40) esperado =  "password demasiado largo";
-		 else if(password.length()>= 5 && password.length() <= 8) esperado = "********";
-		 else esperado =  "************";
-		 
-		 assertEquals(esperado, ej1.enmascarado(password));
-	 }	
 		
 }
