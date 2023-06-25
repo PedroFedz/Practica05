@@ -72,11 +72,6 @@ public class Coche {
 	}
 	
 	@Override
-	public int hashCode() {
-	    return Objects.hash(año, marca, modelo, precio);
-	}
-
-	@Override
 	public String toString() {
 		return "Coche [marca=" + marca + ", modelo=" + modelo + ", año=" + año + ", precio=" + precio + "]";
 	}

@@ -27,13 +27,10 @@ class JsonReaderTest {
 	
 	@ParameterizedTest
 	@CsvFileSource(resources = "FakeUrls.csv")
-	void testCochesError(String url) {
+	void testCochesError(String url) throws IOException {
 		JsonReader js = new JsonReader();
-		try {
-			JsonReader.leerCochesJSON("data/cochesError.json");
-		} catch (IOException e) {
-
-		}
+		JsonReader.leerCochesJSON("data/cochesError.json");
+		
 	}
 	
 	
